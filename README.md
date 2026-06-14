@@ -1,42 +1,48 @@
-# LLM Wiki Starter Template
+# wiki-template
 
-This directory provides a ready-to-use foundation for building a private semantic knowledge base using the **LLM Wiki CLI** (`llm-wiki` on PyPI, `wiki` command). It scaffolds a fully functioning local vault environment powered by SHACL shapes and OWL-RL inference.
+Generic **Wiki CLI** workspace starter — `wiki init` parity plus GitHub Pages deploy.
 
-## Structure
+This is the privileged generic scaffold. For the Karpathy-pattern [LLM Wiki](https://github.com/wazootech/wiki/blob/main/docs/wiki/LLM_Wiki.md) vault (agent gardening, shapes, SPARQL indexes), use [`llm-wiki-template`](https://github.com/wazootech/llm-wiki-template) ([#83](https://github.com/wazootech/wiki/issues/83)).
 
-* **`wiki.yaml`**: Active configuration defining the root of the vault ecosystem.
-* **`wiki/`**: Primary repository hosting both your human-readable documentation and machine-readable semantic logic (embedded SHACL constraints and RDFS/OWL axioms).
+Full ecosystem registry: [Wiki CLI templates](https://github.com/wazootech/wiki/blob/main/docs/wiki/Wiki_CLI.md#ecosystem-templates).
 
-## Getting started
+## Quick start
 
-### Initialize environment
-Ensure the `llm-wiki` package is installed (from the parent [llm-wiki](https://github.com/wazootech/llm-wiki) repository root):
+1. Click **Use this template** on GitHub (or clone this repo).
+2. Install [Wiki CLI](https://pypi.org/project/wazootech-wiki/):
+
 ```bash
-uv sync
+pip install wazootech-wiki
 ```
 
-### Verify health
-From within this template directory, execute a unified environment check to confirm the base setup is structurally correct:
+3. Validate and preview:
+
 ```bash
-uv run wiki check -v
+wiki check --strict
+wiki serve --watch
 ```
 
-## Essential workflows
+4. Enable **Settings → Pages → Source: GitHub Actions** so the deploy workflow can publish `wiki build` output.
 
-### Create a new article
-To instantly generate a clean Markdown file pre-populated with a boilerplate ID and type:
-```bash
-uv run wiki create "My New Concept"
-```
+## Workspace layout
 
-### Sync dynamic indexes
-If your pages utilize embedded SPARQL comment blocks (`<!-- sparql:start -->`), maintain chronological accuracy and generate cross-referenced tables automatically:
-```bash
-uv run wiki render
-```
+- `wiki.yaml` — config root (`wiki.inputs`, `graph.*`, `site.*`)
+- `wiki/` — markdown vault with semantic frontmatter
+- `layouts/` — Jinja page templates
+- `assets/` — static files copied on `wiki build`
 
-### Query the graph
-Execute ad-hoc semantic lookups directly on your corpus without loading custom UIs:
-```bash
-uv run wiki query "SELECT ?s WHERE { ?s schema:name ?name }"
-```
+## Commands
+
+| Command | Purpose |
+| ------- | ------- |
+| `wiki check` | SHACL, JSON Schema, routes, layout integrity |
+| `wiki lint` | Broken links, filename pattern, heading conventions |
+| `wiki fmt` | Mechanical markdown layout |
+| `wiki serve --watch` | Local preview |
+| `wiki build` | Static HTML for deployment |
+| `wiki export` | JSON-LD, Turtle, TriG RDF serializations |
+
+## Related
+
+- [Wiki CLI](https://github.com/wazootech/wiki)
+- [Getting started](https://github.com/wazootech/wiki/blob/main/docs/wiki/Getting_Started.md)

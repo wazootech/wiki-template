@@ -7,24 +7,21 @@ on:
     branches: ["main"]
 
 jobs:
-  test:
-    name: Audit and Validate Wiki
+  wiki:
+    name: Validate wiki
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Set up Python 3.12
-        uses: actions/setup-python@v5
+      - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
 
-      - name: Install llm-wiki
-        run: pip install git+https://github.com/wazootech/llm-wiki.git
+      - name: Install Wiki CLI
+        run: pip install wazootech-wiki
 
-      - name: Audit wiki style and SHACL constraints
+      - name: Integrity audits
         run: wiki check --strict -v
 
-      - name: Verify SPARQL block rendering is up to date
-        run: wiki render --check
+      - name: Convention audits
+        run: wiki lint --strict -v
