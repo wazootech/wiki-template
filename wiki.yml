@@ -32,8 +32,6 @@ site:
   # dir -> slug/index.html; file -> slug.html
   url_style: dir
 
-# wiki link command output format and rename repair map.
-
 check:
   missing_layout_file: error
   frontmatter_schema: error
