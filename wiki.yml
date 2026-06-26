@@ -33,11 +33,7 @@ site:
   url_style: dir
 
 # wiki link command output format and rename repair map.
-link:
-  # standard Markdown links.
-  style: markdown
 
-# Integrity severities (wiki check): SHACL, JSON Schema, routes, layout files.
 check:
   missing_layout_file: error
   frontmatter_schema: error
